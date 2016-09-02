@@ -1,3 +1,3 @@
 #SpringMVC
-¹ØÓÚSpringMVCÒ»Ğ©¼òµ¥Êµ¼ù
-1. DataBaseManagement »ùÓÚSpringMVC
+å…³äºSpringMVCä¸€äº›ç®€å•å®è·µ
+1. DataBaseManagement åŸºäºSpringMVC
