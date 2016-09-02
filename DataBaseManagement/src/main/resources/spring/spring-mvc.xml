@@ -24,7 +24,6 @@
     <mvc:resources mapping="/css/**" location="/WEB-INF/statics/css/"/>
     <mvc:resources mapping="/js/**" location="/WEB-INF/statics/js/"/>
     <mvc:resources mapping="/image/**" location="/WEB-INF/statics/image/"/>
-    <mvc:resources mapping="/jslib/**" location="/WEB-INF/statics/jslib/" />
 
     <!-- 配置注解驱动 可以将request参数与绑定到controller参数上 -->
     <mvc:annotation-driven/>

@@ -7,6 +7,11 @@ package com.gmail.leetao94cn.dao;
 public class CityGrid {
     private  String id,cityid,gridid,gridname;
 
+    //添加无参的构造函数
+    public  CityGrid(){
+
+    }
+
     public CityGrid(String id,String cityid,String gridid,String gridname){
         this.id = id;
         this.cityid = cityid;

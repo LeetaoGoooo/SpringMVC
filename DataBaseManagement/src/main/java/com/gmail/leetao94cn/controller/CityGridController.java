@@ -74,29 +74,42 @@ public class CityGridController {
     }
 
     @RequestMapping("/updateCityGridData")
-    public boolean updateCityGridData(@ModelAttribute("cityGrid")CityGrid cityGrid) {
-        String usql = "UPDATE rest SET cityid=?,gridid=?,gridname=? WHERE id=?";
-        int flag = jdbcTemplate.update(usql,cityGrid);
-        if(flag == 1){
-            return true;
-        }else{
+    public boolean updateCityGridData(@RequestParam(value = "objJSON")String objJSON) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try{
+            CityGrid cityGrid = objectMapper.readValue(objJSON,CityGrid.class);
+            String usql = "UPDATE rest SET cityid=?,gridid=?,gridname=? WHERE id=?";
+            int flag = jdbcTemplate.update(usql,cityGrid);
+            if(flag == 1){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (Exception e){
             return false;
         }
     }
 
     @RequestMapping("/insertCityGridData")
-    public boolean insertCityGrid(@ModelAttribute("cityGrid") final CityGrid cityGrid) {
-        int flag = jdbcTemplate.update("INSERT INTO rest(cityid,gridid,gridname) VALUES(?,?,?)",
-                new PreparedStatementSetter(){
-                    public void setValues(PreparedStatement preparedStatement) throws SQLException{
-                        preparedStatement.setString(1, cityGrid.getCityid());
-                        preparedStatement.setString(2, cityGrid.getGridid());
-                        preparedStatement.setString(3,cityGrid.getGridname());
-                    }
-                });
-        if(flag == 1){
-            return true;
-        }else{
+    public boolean insertCityGrid(@RequestParam(value = "objJSON",defaultValue = "{\"cityid\":\"\",\"gridid\":\"\",\"gridname\":\"\"}")String objJSON) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try{
+            //确保存在无参的构造函数 cityGrid
+            final  CityGrid cityGrid = objectMapper.readValue(objJSON,CityGrid.class);
+            int flag = jdbcTemplate.update("INSERT INTO rest(cityid,gridid,gridname) VALUES(?,?,?)",
+                    new PreparedStatementSetter(){
+                        public void setValues(PreparedStatement preparedStatement) throws SQLException{
+                            preparedStatement.setString(1, cityGrid.getCityid());
+                            preparedStatement.setString(2, cityGrid.getGridid());
+                            preparedStatement.setString(3,cityGrid.getGridname());
+                        }
+                    });
+            if(flag == 1){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception e){
             return false;
         }
     }
